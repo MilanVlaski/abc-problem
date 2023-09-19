@@ -16,7 +16,7 @@ import main.WordMaker;
 class TestClass {
 
 	WordMaker wordMaker;
-	public static List<Block> BLOCKS = Arrays.asList(
+	public static List<Block> BLOCKS = new ArrayList<Block>(Arrays.asList(
 			new Block('B', 'O'),
 			new Block('X', 'K'),
 			new Block('D', 'Q'),
@@ -36,7 +36,7 @@ class TestClass {
 			new Block('F', 'S'),
 			new Block('L', 'Y'),
 			new Block('P', 'C'),
-			new Block('Z', 'M'));
+			new Block('Z', 'M')));
 
 	@BeforeEach
 	void setup() {

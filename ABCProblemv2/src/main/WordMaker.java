@@ -56,7 +56,7 @@ public class WordMaker {
 	public char[] prepare(String word) {
 		return word.toUpperCase().toCharArray();
 	}
-	
+	// NAME: howManyMatchingBlocks
 	public int removeBlocks(String word) {
 		
 		char[] chars = prepare(word);
@@ -72,7 +72,6 @@ public class WordMaker {
 		return numOfRemovedBlocks;
 	}
 	
-	//returns true if the word can be assembled with the blocks
 	public boolean canMake(String word) {
 		int numOfRemovedBlocks = removeBlocks(word);
 		
