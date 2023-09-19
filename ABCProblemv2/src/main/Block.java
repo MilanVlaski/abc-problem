@@ -11,7 +11,7 @@ public class Block {
 		this.second = second;
 	}
 
-	public boolean isMatching(char c) {
+	public boolean has(char c) {
 		return (c == first || c == second);
 	}
 }

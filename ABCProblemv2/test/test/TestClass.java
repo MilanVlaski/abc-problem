@@ -45,7 +45,7 @@ class TestClass {
 	@Test
 	void testIsMatching() {
 		Block block = new Block('B', 'O');
-		assertEquals(true, block.isMatching('B'));
+		assertEquals(true, block.has('B'));
 	}
 
 	@Test

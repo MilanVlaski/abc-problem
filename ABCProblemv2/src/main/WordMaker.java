@@ -42,7 +42,7 @@ public class WordMaker {
 		int index = 0;
 		
 		for (Block b : blocks) {
-			if(b.isMatching(c))
+			if(b.has(c))
 				break;
 			index++;
 		}
