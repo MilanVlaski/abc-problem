@@ -7,7 +7,6 @@ public class WordMaker {
 	Vector<Block> blocks = new Vector<>();
 
 	public WordMaker() {
-	
 		blocks.add(new Block('B', 'O'));
 		blocks.add(new Block('X', 'K'));
 		blocks.add(new Block('D', 'Q'));
