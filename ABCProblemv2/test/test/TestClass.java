@@ -1,5 +1,6 @@
 package test;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -46,7 +47,7 @@ class TestClass {
 	@Test
 	void blockShouldHaveB() {
 		Block block = new Block('B', 'O');
-		assertEquals(true, block.has('B'));
+		assertTrue(block.has('B'));
 	}
 
 	@Test
@@ -73,6 +74,19 @@ class TestClass {
 
 	@Test
 	void testFinalA() {
-		assertEquals(true, wordMaker.canMake("A"));
+		assertTrue(wordMaker.canMake("A"));
+	}
+
+	// This obviously can make the word "ace". But because we go sequentially,
+	// we can never know that we missed an opportunity to make it.
+	@Test
+	void shouldWorkRegardlessOfOrderOfBlocks() {
+		WordMaker wordMaker = new WordMaker(Arrays.asList(
+				new Block('A', 'Z'),
+				new Block('C', 'E'),
+				new Block('C', 'B')));
+		assertTrue(wordMaker.canMake("ace"));
+		// we end up missing an E, but it E is among the removed blocks.
+		// we can try to replace the removed E block with a 
 	}
 }
