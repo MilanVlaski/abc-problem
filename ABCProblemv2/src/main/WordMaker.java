@@ -36,8 +36,11 @@ public class WordMaker {
 		this.blocks = new ArrayList<>(blocks);
 	}
 	
-	//Returns the index of a matching block (if no matching blocks are present,
-	// returns an index that is 1 greater than the length of the array of blocks)
+	/**
+	 * If no block is found that has the character, returns -1
+	 * @param character
+	 * @return
+	 */
 	public int indexOfMatchingBlock(char character) {
 		int i = 0;
 		 
