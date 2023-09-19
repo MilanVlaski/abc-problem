@@ -7,6 +7,7 @@ import java.util.List;
 public class WordMaker {
 
 	private final List<Block> blocks;
+	private final List<Block> removedBlocks = new ArrayList<>();
 
 	public WordMaker() {
 		blocks = new ArrayList<>(Arrays.asList(
@@ -60,21 +61,19 @@ public class WordMaker {
 
 	public int removeBlocks(String word) {
 		char[] chars = prepare(word);
-		int numOfRemovedBlocks = 0;
 
 		for (char character : chars) {
-			int indexToRemove = indexOfBlockThatMatches(character);
-			if (indexToRemove != -1) {
-				blocks.remove(indexToRemove);
-				numOfRemovedBlocks++;
+			int blockToRemove = indexOfBlockThatMatches(character);
+			if (blockToRemove != -1) {
+				removedBlocks.add(blocks.get(blockToRemove));
+				blocks.remove(blockToRemove);
 			}
 		}
-		return numOfRemovedBlocks;
+		return removedBlocks.size();
 	}
 
 	public boolean canMake(String word) {
 		int numOfRemovedBlocks = removeBlocks(word);
-
 		return (numOfRemovedBlocks == word.length());
 	}
 	

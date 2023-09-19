@@ -86,7 +86,10 @@ class TestClass {
 				new Block('C', 'E'),
 				new Block('C', 'B')));
 		assertTrue(wordMaker.canMake("ace"));
-		// we end up missing an E, but it E is among the removed blocks.
-		// we can try to replace the removed E block with a 
+		
+		// We are missing E. We can check if E is among the removed blocks.
+		// Then we read the other value on the block (in this case thats C).
+		// Since we have already matched C, that means we can just replace 
+		// whatever block has C with our CE block.
 	}
 }
