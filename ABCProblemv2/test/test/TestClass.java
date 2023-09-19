@@ -51,19 +51,19 @@ class TestClass {
 
 	@Test
 	void fourthBlockShouldHaveA() {
-		assertEquals(4, wordMaker.indexOfMatchingBlock('A'));
+		assertEquals(4, wordMaker.indexOfBlockThatMatches('A'));
 	}
 
 	@Test
 	void shouldReturnMinusOneIfNotFound() {
 		wordMaker = new WordMaker(Arrays.asList(new Block('A', 'B')));
-		assertEquals(-1, wordMaker.indexOfMatchingBlock('C'));
+		assertEquals(-1, wordMaker.indexOfBlockThatMatches('C'));
 	}
 
 	@Test
 	void testPrepareWord() {
 		char[] expected = { 'C', 'O', 'N', 'F', 'U', 'S', 'E' };
-		assertArrayEquals(expected, wordMaker.prepareWord("cOnfuSE"));
+		assertArrayEquals(expected, wordMaker.prepare("cOnfuSE"));
 	}
 
 	@Test
@@ -73,6 +73,6 @@ class TestClass {
 
 	@Test
 	void testFinalA() {
-		assertEquals(true, wordMaker.makeWord("A"));
+		assertEquals(true, wordMaker.canMake("A"));
 	}
 }

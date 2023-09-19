@@ -41,34 +41,29 @@ public class WordMaker {
 	 * @param character
 	 * @return
 	 */
-	public int indexOfMatchingBlock(char character) {
-		int i = 0;
+	public int indexOfBlockThatMatches(char character) {
+		int match = 0;
 		 
 		for (Block block : blocks) {
 			if(block.has(character))
-				break;
-			i++;
+				return match;
+			match++;
 		}
 		
-		if(i == blocks.size())
-			return -1;
-		
-		return i;
+		return -1;
 	}
 	
-	//returns an all upper case representation of a String, as a char[]
-	public char[] prepareWord(String word) {
+	public char[] prepare(String word) {
 		return word.toUpperCase().toCharArray();
 	}
 	
-	//removes the blocks if they are matching, and returns the number of removed blocks
 	public int removeBlocks(String word) {
 		
-		char[] chars = prepareWord(word);
+		char[] chars = prepare(word);
 		int numOfRemovedBlocks = 0;
 		
-		for (char c : chars) {
-			int indexToRemove = indexOfMatchingBlock(c);
+		for (char character : chars) {
+			int indexToRemove = indexOfBlockThatMatches(character);
 			if(indexToRemove != -1) {
 				blocks.remove(indexToRemove);
 				numOfRemovedBlocks++;
@@ -78,7 +73,7 @@ public class WordMaker {
 	}
 	
 	//returns true if the word can be assembled with the blocks
-	public boolean makeWord(String word) {
+	public boolean canMake(String word) {
 		int numOfRemovedBlocks = removeBlocks(word);
 		
 		return (numOfRemovedBlocks == word.length());

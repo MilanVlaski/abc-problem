@@ -19,7 +19,7 @@ class TestDifferentWords {
 	
 	@Test
 	void testFinalBARK() {
-		assertEquals(true, wordMaker.makeWord("bArk"));
+		assertEquals(true, wordMaker.canMake("bArk"));
 	}
 	@Test
 	void testRemoveBlocksBARK() {
@@ -27,7 +27,7 @@ class TestDifferentWords {
 	}
 	@Test
 	void testFinalBOOK() {
-		assertEquals(false, wordMaker.makeWord("BOOk"));
+		assertEquals(false, wordMaker.canMake("BOOk"));
 	}
 	@Test
 	void testRemoveBlocksBOOK() {
@@ -35,7 +35,7 @@ class TestDifferentWords {
 	}
 	@Test
 	void testFinalTREAT() {
-		assertEquals(true, wordMaker.makeWord("TReAt"));
+		assertEquals(true, wordMaker.canMake("TReAt"));
 	}
 	@Test
 	void testRemoveBlocksTREAT() {
@@ -43,7 +43,7 @@ class TestDifferentWords {
 	}
 	@Test
 	void testFinalCOMMON() {
-		assertEquals(false, wordMaker.makeWord("coMmon"));
+		assertEquals(false, wordMaker.canMake("coMmon"));
 	}
 	@Test
 	void testRemoveBlocksCOMMON() {
@@ -51,7 +51,7 @@ class TestDifferentWords {
 	}
 	@Test
 	void testFinalSQUAD() {
-		assertEquals(true, wordMaker.makeWord("sQuad"));
+		assertEquals(true, wordMaker.canMake("sQuad"));
 	}
 	@Test
 	void testRemoveBlocksSQUAD() {
@@ -59,7 +59,7 @@ class TestDifferentWords {
 	}
 	@Test
 	void testFinalCONFUSE() {
-		assertEquals(true, wordMaker.makeWord("cOnFuse"));
+		assertEquals(true, wordMaker.canMake("cOnFuse"));
 	}
 	@Test
 	void testRemoveBlocksCONFUSE() {
@@ -67,7 +67,7 @@ class TestDifferentWords {
 	}
 	@Test
 	void testFinalCustom() {
-		assertEquals(false, wordMaker.makeWord("bbom"));
+		assertEquals(false, wordMaker.canMake("bbom"));
 	}
 	@Test
 	void testRemoveBlocksCustom() {
