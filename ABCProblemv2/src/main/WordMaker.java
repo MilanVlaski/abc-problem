@@ -38,7 +38,7 @@ public class WordMaker {
 	
 	//Returns the index of a matching block (if no matching blocks are present,
 	// returns an index that is 1 greater than the length of the array of blocks)
-	public int compareLetterWithBlocks(char character) {
+	public int indexOfMatchingBlock(char character) {
 		int i = 0;
 		 
 		for (Block block : blocks) {
@@ -46,6 +46,10 @@ public class WordMaker {
 				break;
 			i++;
 		}
+		
+		if(i == blocks.size())
+			return -1;
+		
 		return i;
 	}
 	
@@ -61,8 +65,8 @@ public class WordMaker {
 		int numOfRemovedBlocks = 0;
 		
 		for (char c : chars) {
-			int indexToRemove = compareLetterWithBlocks(c);
-			if(indexToRemove < blocks.size()) {
+			int indexToRemove = indexOfMatchingBlock(c);
+			if(indexToRemove != -1) {
 				blocks.remove(indexToRemove);
 				numOfRemovedBlocks++;
 			}

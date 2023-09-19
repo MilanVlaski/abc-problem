@@ -3,6 +3,7 @@ package test;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -50,7 +51,13 @@ class TestClass {
 
 	@Test
 	void fourthBlockShouldHaveA() {
-		assertEquals(4, wordMaker.compareLetterWithBlocks('A'));
+		assertEquals(4, wordMaker.indexOfMatchingBlock('A'));
+	}
+
+	@Test
+	void shouldReturnMinusOneIfNotFound() {
+		wordMaker = new WordMaker(Arrays.asList(new Block('A', 'B')));
+		assertEquals(-1, wordMaker.indexOfMatchingBlock('C'));
 	}
 
 	@Test
