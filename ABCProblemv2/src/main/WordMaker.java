@@ -1,32 +1,39 @@
 package main;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class WordMaker {
 	
-	Vector<Block> blocks = new Vector<>();
+	List<Block> blocks = new ArrayList<>();
 
-	public WordMaker() {
-		blocks.add(new Block('B', 'O'));
-		blocks.add(new Block('X', 'K'));
-		blocks.add(new Block('D', 'Q'));
-		blocks.add(new Block('C', 'P'));
-		blocks.add(new Block('N', 'A'));
-		blocks.add(new Block('G', 'T'));
-		blocks.add(new Block('R', 'E'));
-		blocks.add(new Block('T', 'G'));
-		blocks.add(new Block('Q', 'D'));
-		blocks.add(new Block('F', 'S'));
-		blocks.add(new Block('J', 'W'));
-		blocks.add(new Block('H', 'U'));
-		blocks.add(new Block('V', 'I'));
-		blocks.add(new Block('A', 'N'));
-		blocks.add(new Block('O', 'B'));
-		blocks.add(new Block('E', 'R'));
-		blocks.add(new Block('F', 'S'));
-		blocks.add(new Block('L', 'Y'));
-		blocks.add(new Block('P', 'C'));
-		blocks.add(new Block('Z', 'M'));
+	public WordMaker() {	
+		blocks = new ArrayList<>(Arrays.asList(		
+				new Block('B', 'O'),
+				new Block('X', 'K'),
+				new Block('D', 'Q'),
+				new Block('C', 'P'),
+				new Block('N', 'A'),
+				new Block('G', 'T'),
+				new Block('R', 'E'),
+				new Block('T', 'G'),
+				new Block('Q', 'D'),
+				new Block('F', 'S'),
+				new Block('J', 'W'),
+				new Block('H', 'U'),
+				new Block('V', 'I'),
+				new Block('A', 'N'),
+				new Block('O', 'B'),
+				new Block('E', 'R'),
+				new Block('F', 'S'),
+				new Block('L', 'Y'),
+				new Block('P', 'C'),
+				new Block('Z', 'M')));
+	}
+	
+	public WordMaker(List<Block> blocks) {	
+		this.blocks = new ArrayList<>(blocks);
 	}
 	
 	//Returns the index of a matching block (if no matching blocks are present,
