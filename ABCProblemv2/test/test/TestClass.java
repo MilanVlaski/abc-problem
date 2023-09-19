@@ -43,13 +43,13 @@ class TestClass {
 	}
 
 	@Test
-	void testIsMatching() {
+	void blockShouldHaveB() {
 		Block block = new Block('B', 'O');
 		assertEquals(true, block.has('B'));
 	}
 
 	@Test
-	void testCompareLetterWithBlocks() {
+	void fourthBlockShouldHaveA() {
 		assertEquals(4, wordMaker.compareLetterWithBlocks('A'));
 	}
 

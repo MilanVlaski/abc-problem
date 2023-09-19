@@ -38,15 +38,15 @@ public class WordMaker {
 	
 	//Returns the index of a matching block (if no matching blocks are present,
 	// returns an index that is 1 greater than the length of the array of blocks)
-	public int compareLetterWithBlocks(char c) {
-		int index = 0;
-		
-		for (Block b : blocks) {
-			if(b.has(c))
+	public int compareLetterWithBlocks(char character) {
+		int i = 0;
+		 
+		for (Block block : blocks) {
+			if(block.has(character))
 				break;
-			index++;
+			i++;
 		}
-		return index;
+		return i;
 	}
 	
 	//returns an all upper case representation of a String, as a char[]
