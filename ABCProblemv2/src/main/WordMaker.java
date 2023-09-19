@@ -2,7 +2,9 @@ package main;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 public class WordMaker {
 
@@ -44,7 +46,7 @@ public class WordMaker {
 	 * @return
 	 */
 	public int indexOfBlockThatMatches(char character) {
-		
+
 		int match = 0;
 		for (Block block : blocks) {
 			if (block.has(character))
@@ -64,17 +66,40 @@ public class WordMaker {
 
 		for (char character : chars) {
 			int blockToRemove = indexOfBlockThatMatches(character);
-			if (blockToRemove != -1) {
-				removedBlocks.add(blocks.get(blockToRemove));
-				blocks.remove(blockToRemove);
-			}
+			if (blockToRemove != -1)
+				removeBlock(blockToRemove);
 		}
+
+		// if couldn match, check removedBlocks
+		if (removedBlocks.size() < word.length()) {
+			// Check which char is missing.
+			// Check that missing char is among removedBlocks
+			// Get other value on block
+			// If we have once matched this value (C),
+			// that means we can create the thing!
+			// (actually we add blockthat matches C to removedBlocks,
+			// looping until resolved)
+		}
+
 		return removedBlocks.size();
+	}
+
+	private Optional<Block> removedAndMatchingBlock(char character) {
+		for (Block block : removedBlocks) {
+			if (block.has(character))
+				return Optional.of(block);
+		}
+		return Optional.empty();
+	}
+
+	private void removeBlock(int blockToRemove) {
+		removedBlocks.add(blocks.get(blockToRemove));
+		blocks.remove(blockToRemove);
 	}
 
 	public boolean canMake(String word) {
 		int numOfRemovedBlocks = removeBlocks(word);
 		return (numOfRemovedBlocks == word.length());
 	}
-	
+
 }
