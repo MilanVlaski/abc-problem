@@ -15,7 +15,7 @@ import main.WordMaker;
 class TestClass {
 
 	WordMaker wordMaker;
-	public static List<Block> BLOCKS = Arrays.asList(		
+	public static List<Block> BLOCKS = Arrays.asList(
 			new Block('B', 'O'),
 			new Block('X', 'K'),
 			new Block('D', 'Q'),
@@ -36,18 +36,16 @@ class TestClass {
 			new Block('L', 'Y'),
 			new Block('P', 'C'),
 			new Block('Z', 'M'));
-			
-	
+
+	@BeforeEach
+	void setup() {
+		wordMaker = new WordMaker(BLOCKS);
+	}
 
 	@Test
 	void testIsMatching() {
 		Block block = new Block('B', 'O');
 		assertEquals(true, block.isMatching('B'));
-	}
-
-	@BeforeEach
-	void setup() {
-		wordMaker = new WordMaker(BLOCKS);
 	}
 
 	@Test
