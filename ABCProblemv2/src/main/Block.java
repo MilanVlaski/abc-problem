@@ -5,7 +5,7 @@ public class Block {
 	private final char first;
 	private final char second;
 	private char match;
-	
+
 	public Block(char first, char second) {
 		this.first = first;
 		this.second = second;
@@ -16,15 +16,13 @@ public class Block {
 	}
 
 	public void matchTo(char c) {
-		if(this.has(c)) {
-			if(c == first)
-				match = first;
-			else
-				match = second;
-		}
+		if (c == first)
+			match = first;
+		else if (c == second)
+			match = second;
 	}
 
-	public char matched() {
+	public char matchesChar() {
 		return match;
 	}
 }

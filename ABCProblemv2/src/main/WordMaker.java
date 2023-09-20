@@ -9,7 +9,7 @@ import java.util.Optional;
 public class WordMaker {
 
 	private final List<Block> blocks;
-	private final List<Block> removedBlocks = new ArrayList<>();
+	private final List<Block> matchingBlocks = new ArrayList<>();
 
 	public WordMaker() {
 		blocks = new ArrayList<>(Arrays.asList(
@@ -72,8 +72,8 @@ public class WordMaker {
 				removeBlock(blockToRemove);
 		}
 
-		// if couldn match, check removedBlocks
-		if (removedBlocks.size() < word.length()) {
+		// if couldnt match, check removedBlocks
+		if (matchingBlocks.size() < word.length()) {
 			// Check which char is missing.
 			// Check that missing char is among removedBlocks (this means that
 			// a removed block matches two different chars in word)
@@ -87,7 +87,7 @@ public class WordMaker {
 	}
 
 	private Optional<Block> removedAndMatchingBlock(char character) {
-		for (Block block : removedBlocks) {
+		for (Block block : matchingBlocks) {
 			if (block.has(character))
 				return Optional.of(block);
 		}
@@ -95,13 +95,13 @@ public class WordMaker {
 	}
 
 	private void removeBlock(int blockToRemove) {
-		removedBlocks.add(blocks.get(blockToRemove));
+		matchingBlocks.add(blocks.get(blockToRemove));
 		blocks.remove(blockToRemove);
 	}
 
 	public boolean canMake(String word) {
 		removeBlocks(word);
-		return (removedBlocks.size() == word.length());
+		return (matchingBlocks.size() == word.length());
 	}
 
 }

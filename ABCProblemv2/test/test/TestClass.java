@@ -49,12 +49,19 @@ class TestClass {
 		Block block = new Block('B', 'O');
 		assertTrue(block.has('B'));
 	}
-	
+
 	@Test
 	void shouldMatchBlockToB() {
 		Block block = new Block('B', 'O');
 		block.matchTo('B');
-		assertEquals('B', block.matched());
+		assertEquals('B', block.matchesChar());
+	}
+
+	@Test
+	void shouldMatchBlockToO() {
+		Block block = new Block('B', 'O');
+		block.matchTo('O');
+		assertEquals('O', block.matchesChar());
 	}
 
 	@Test
@@ -74,7 +81,6 @@ class TestClass {
 		assertArrayEquals(expected, wordMaker.prepare("cOnfuSE"));
 	}
 
-
 	@Test
 	void testFinalA() {
 		assertTrue(wordMaker.canMake("A"));
@@ -89,10 +95,10 @@ class TestClass {
 				new Block('C', 'E'),
 				new Block('C', 'B')));
 		assertTrue(wordMaker.canMake("ace"));
-		
+
 		// We are missing E. We can check if E is among the removed blocks.
 		// Then we read the other value on the block (in this case thats C).
-		// Since we have already matched C, that means we can just replace 
+		// Since we have already matched C, that means we can just replace
 		// whatever block has C with our CE block.
 	}
 }
