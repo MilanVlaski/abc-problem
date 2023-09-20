@@ -67,10 +67,6 @@ class TestClass {
 		assertArrayEquals(expected, wordMaker.prepare("cOnfuSE"));
 	}
 
-	@Test
-	void testRemoveBlocksA() {
-		assertEquals(1, wordMaker.removeBlocks("A"));
-	}
 
 	@Test
 	void testFinalA() {

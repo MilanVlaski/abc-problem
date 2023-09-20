@@ -61,7 +61,7 @@ public class WordMaker {
 		return word.toUpperCase().toCharArray();
 	}
 
-	public int removeBlocks(String word) {
+	private void removeBlocks(String word) {
 		char[] chars = prepare(word);
 
 		for (char character : chars) {
@@ -73,15 +73,16 @@ public class WordMaker {
 		// if couldn match, check removedBlocks
 		if (removedBlocks.size() < word.length()) {
 			// Check which char is missing.
+			
+			
 			// Check that missing char is among removedBlocks
 			// Get other value on block
 			// If we have once matched this value (C),
 			// that means we can create the thing!
-			// (actually we add blockthat matches C to removedBlocks,
+			// (actually we add block that matches C to removedBlocks,
 			// looping until resolved)
 		}
 
-		return removedBlocks.size();
 	}
 
 	private Optional<Block> removedAndMatchingBlock(char character) {
@@ -98,8 +99,8 @@ public class WordMaker {
 	}
 
 	public boolean canMake(String word) {
-		int numOfRemovedBlocks = removeBlocks(word);
-		return (numOfRemovedBlocks == word.length());
+		removeBlocks(word);
+		return (removedBlocks.size() == word.length());
 	}
 
 }
