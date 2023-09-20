@@ -1,8 +1,8 @@
 package test;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -71,8 +71,8 @@ class TestClass {
 
 	@Test
 	void shouldReturnMinusOneIfNotFound() {
-		wordMaker = new WordMaker(Arrays.asList(new Block('A', 'B')));
-		assertEquals(-1, wordMaker.indexOfBlockThatMatches(BLOCKS, 'C'));
+		List<Block> blocks = new ArrayList<>(Arrays.asList(new Block('A', 'B')));
+		assertEquals(-1, wordMaker.indexOfBlockThatMatches(blocks, 'C'));
 	}
 
 	@Test
