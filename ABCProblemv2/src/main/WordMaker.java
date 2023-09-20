@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class WordMaker {
-	
+
 	// if you try working with this list, it breaks
 	private final List<Block> blocks;
 
@@ -35,20 +35,39 @@ public class WordMaker {
 		}
 		// if couldnt match, check removedBlocks
 		if (matchingBlocks.size() < word.length()) {
-			
-			// Check which char is missing.
+			char[] matchedChars = matchedChars(matchingBlocks);
+			char[] missingChars = missingChars(word, matchedChars);
+			boolean matchesContainMissingChar = matchingBlocks.contains(missingChars[0]);
+			if(matchesContainMissingChar) {
+				
+			}
 			// Check that missing char is among removedBlocks (this means that
 			// a removed block matches two different chars in word)
 			// Get other value on block
 			// If we have once matched this value (C),
 			// that means we can create the thing!
 			// (actually we add block that matches C to removedBlocks,
-			// looping until resolved)
 		}
 
 		return matchingBlocks;
+	}
 
+	public char[] missingChars(String word, char[] matchedChars) {
+		String result = word;
+		for (char c : matchedChars)
+			result = result.replaceFirst(String.valueOf(c), "");
+		
+		return result.toCharArray();
+	}
 
+	public char[] matchedChars(List<Block> matchingBlocks) {
+		char[] matchedChars = new char[matchingBlocks.size()];
+
+		int i = 0;
+		for (Block block : matchingBlocks)
+			matchedChars[i++] = block.match();
+
+		return matchedChars;
 	}
 
 	/**

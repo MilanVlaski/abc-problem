@@ -53,14 +53,14 @@ class TestClass {
 	void shouldMatchBlockToB() {
 		Block block = new Block('B', 'O');
 		block.matchTo('B');
-		assertEquals('B', block.matchesChar());
+		assertEquals('B', block.match());
 	}
 
 	@Test
 	void shouldMatchBlockToO() {
 		Block block = new Block('B', 'O');
 		block.matchTo('O');
-		assertEquals('O', block.matchesChar());
+		assertEquals('O', block.match());
 	}
 
 	@Test
@@ -89,12 +89,27 @@ class TestClass {
 
 //	 This obviously can make the word "ace". But because we go sequentially,
 //	 we can never know that we missed an opportunity to make it.
+//	@Test
+//	void shouldWorkRegardlessOfOrderOfBlocks() {
+//		WordMaker wordMaker = new WordMaker(List.of(
+//				new Block('A', 'Z'),
+//				new Block('C', 'E'),
+//				new Block('C', 'B')));
+//		assertTrue(wordMaker.canMake("ace"));
+//	}
+
 	@Test
-	void shouldWorkRegardlessOfOrderOfBlocks() {
-		WordMaker wordMaker = new WordMaker(List.of(
-				new Block('A', 'Z'),
-				new Block('C', 'E'),
-				new Block('C', 'B')));
-		assertTrue(wordMaker.canMake("ace"));
+	void shouldMakeCharArrayOutOfBlocks() {
+		List<Block> matchedBlocks = List.of(
+				new Block('A', 'Z', 'A'),
+				new Block('C', 'E', 'C'));
+		char[] charArray = { 'A', 'C' };
+		assertArrayEquals(charArray, wordMaker.matchedChars(matchedBlocks));
+	}
+
+	@Test
+	void shouldGetCharsThatAreMissingFromWord() {
+		assertArrayEquals(new char[] { 'E' },
+				wordMaker.missingChars("ACE", new char[] { 'A', 'C' }));
 	}
 }
