@@ -17,7 +17,7 @@ import main.WordMaker;
 class TestClass {
 
 	WordMaker wordMaker;
-	public static List<Block> BLOCKS = new ArrayList<Block>(Arrays.asList(
+	public static List<Block> BLOCKS = List.of(
 			new Block('B', 'O'),
 			new Block('X', 'K'),
 			new Block('D', 'Q'),
@@ -37,7 +37,7 @@ class TestClass {
 			new Block('F', 'S'),
 			new Block('L', 'Y'),
 			new Block('P', 'C'),
-			new Block('Z', 'M')));
+			new Block('Z', 'M'));
 
 	@BeforeEach
 	void setup() {
@@ -71,7 +71,7 @@ class TestClass {
 
 	@Test
 	void shouldReturnMinusOneIfNotFound() {
-		List<Block> blocks = new ArrayList<>(Arrays.asList(new Block('A', 'B')));
+		List<Block> blocks = List.of(new Block('A', 'B'));
 		assertEquals(-1, wordMaker.blockThatMatches(blocks, 'C'));
 	}
 
