@@ -10,40 +10,42 @@ import java.util.Optional;
 public class WordMaker {
 
 	private final List<Block> blocks;
-	private List<Block> matchingBlocks = new ArrayList<>();
 
 	public WordMaker(List<Block> blocks) {
 		this.blocks = new ArrayList<>(blocks);
 	}
 
 	public boolean canMake(String word) {
-		List<Block> mutableList = new ArrayList<>(blocks);
-		matchingBlocks = new ArrayList<>();
-		removeBlocks(mutableList, word);
+		List<Block> mutableBlocks = new ArrayList<>(blocks);
+		List<Block> matchingBlocks = matchBlocks(mutableBlocks, word);
 		return (matchingBlocks.size() == word.length());
 	}
 
-	// might be called makeWord
-	private void removeBlocks(List<Block> mutableList, String word) {
+	private List<Block> matchBlocks(List<Block> blocks, String word) {
+		List<Block> matchingBlocks = new ArrayList<>();
 		char[] chars = prepare(word);
 
 		for (char character : chars) {
-			int blockToRemove = indexOfBlockThatMatches(mutableList, character);
-			if (blockToRemove != -1)
-				removeBlock(mutableList, blockToRemove);
+			int match = blockThatMatches(blocks, character);
+			if (match != -1) {
+				matchingBlocks.add(blocks.get(match));
+				blocks.remove(match);
+			}
 		}
 
+		return matchingBlocks;
+
 		// if couldnt match, check removedBlocks
-		if (matchingBlocks.size() < word.length()) {
-			// Check which char is missing.
-			// Chec k that missing char is among removedBlocks (this means that
-			// a removed block matches two different chars in word)
-			// Get other value on block
-			// If we have once matched this value (C),
-			// that means we can create the thing!
-			// (actually we add block that matches C to removedBlocks,
-			// looping until resolved)
-		}
+//		if (matchingBlocks.size() < word.length()) {
+//			// Check which char is missing.
+//			// Chec k that missing char is among removedBlocks (this means that
+//			// a removed block matches two different chars in word)
+//			// Get other value on block
+//			// If we have once matched this value (C),
+//			// that means we can create the thing!
+//			// (actually we add block that matches C to removedBlocks,
+//			// looping until resolved)
+//		}
 
 	}
 
@@ -55,14 +57,12 @@ public class WordMaker {
 	 * @param character
 	 * @return
 	 */
-	public int indexOfBlockThatMatches(List<Block> mutableList, char character) {
+	public int blockThatMatches(List<Block> mutableList, char character) {
 
 		int match = 0;
 		for (Block block : mutableList) {
-			if (block.has(character)) {
-				block.matchTo(character);
+			if (block.has(character))
 				return match;
-			}
 			match++;
 		}
 
@@ -71,11 +71,6 @@ public class WordMaker {
 
 	public char[] prepare(String word) {
 		return word.toUpperCase().toCharArray();
-	}
-
-	private void removeBlock(List<Block> mutableList, int blockToRemove) {
-		matchingBlocks.add(mutableList.get(blockToRemove));
-		mutableList.remove(blockToRemove);
 	}
 
 //	private Optional<Block> removedAndMatchingBlock(char character) {

@@ -66,13 +66,13 @@ class TestClass {
 
 	@Test
 	void fourthBlockShouldHaveA() {
-		assertEquals(4, wordMaker.indexOfBlockThatMatches(BLOCKS, 'A'));
+		assertEquals(4, wordMaker.blockThatMatches(BLOCKS, 'A'));
 	}
 
 	@Test
 	void shouldReturnMinusOneIfNotFound() {
 		List<Block> blocks = new ArrayList<>(Arrays.asList(new Block('A', 'B')));
-		assertEquals(-1, wordMaker.indexOfBlockThatMatches(blocks, 'C'));
+		assertEquals(-1, wordMaker.blockThatMatches(blocks, 'C'));
 	}
 
 	@Test
