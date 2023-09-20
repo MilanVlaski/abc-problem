@@ -9,15 +9,9 @@ import main.WordMaker;
 
 class TestDifferentWords {
 
-	WordMaker wordMaker;
-
-	@BeforeEach
-	public void initialize() {
-		wordMaker = new WordMaker(TestClass.BLOCKS);
-	}
-
 	@Test
 	void testFinal() {
+		WordMaker wordMaker = new WordMaker(TestClass.BLOCKS);
 		assertEquals(true, wordMaker.canMake("bark"));
 		assertEquals(false, wordMaker.canMake("book"));
 		assertEquals(true, wordMaker.canMake("treat"));

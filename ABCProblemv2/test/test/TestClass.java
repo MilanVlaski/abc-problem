@@ -64,14 +64,14 @@ class TestClass {
 	}
 
 	@Test
-	void fourthBlockShouldHaveA() {
+	void shouldReturnMatchingBlock() {
 		Block aBlock = new Block('A', 'B');
 		List<Block> blocks = List.of(aBlock);
 		assertEquals(aBlock, wordMaker.blockThatMatches(blocks, 'A').get());
 	}
 
 	@Test
-	void shouldReturnMinusOneIfNotFound() {
+	void shouldReturnEmptyIfNotFound() {
 		List<Block> blocks = List.of(new Block('A', 'B'));
 		assertEquals(Optional.empty(), wordMaker.blockThatMatches(blocks, 'C'));
 	}
@@ -87,25 +87,14 @@ class TestClass {
 		assertTrue(wordMaker.canMake("A"));
 	}
 
+//	 This obviously can make the word "ace". But because we go sequentially,
+//	 we can never know that we missed an opportunity to make it.
 	@Test
-	void shouldMakeTwoWords_WithoutRunningOutOfBlocks() {
-		assertTrue(wordMaker.canMake("bark"));
-		assertTrue(wordMaker.canMake("bark"));
+	void shouldWorkRegardlessOfOrderOfBlocks() {
+		WordMaker wordMaker = new WordMaker(List.of(
+				new Block('A', 'Z'),
+				new Block('C', 'E'),
+				new Block('C', 'B')));
+		assertTrue(wordMaker.canMake("ace"));
 	}
-
-	// This obviously can make the word "ace". But because we go sequentially,
-	// we can never know that we missed an opportunity to make it.
-//	@Test
-//	void shouldWorkRegardlessOfOrderOfBlocks() {
-//		WordMaker wordMaker = new WordMaker(Arrays.asList(
-//				new Block('A', 'Z'),
-//				new Block('C', 'E'),
-//				new Block('C', 'B')));
-//		assertTrue(wordMaker.canMake("ace"));
-//
-//		// We are missing E. We can check if E is among the removed blocks.
-//		// Then we read the other value on the block (in this case thats C).
-//		// Since we have already matched C, that means we can just replace
-//		// whatever block has C with our CE block.
-//	}
 }
