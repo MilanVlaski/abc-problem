@@ -2,6 +2,7 @@ package main;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -11,41 +12,18 @@ public class WordMaker {
 	private final List<Block> blocks;
 	private final List<Block> matchingBlocks = new ArrayList<>();
 
-	public WordMaker() {
-		blocks = new ArrayList<>(Arrays.asList(
-				new Block('B', 'O'),
-				new Block('X', 'K'),
-				new Block('D', 'Q'),
-				new Block('C', 'P'),
-				new Block('N', 'A'),
-				new Block('G', 'T'),
-				new Block('R', 'E'),
-				new Block('T', 'G'),
-				new Block('Q', 'D'),
-				new Block('F', 'S'),
-				new Block('J', 'W'),
-				new Block('H', 'U'),
-				new Block('V', 'I'),
-				new Block('A', 'N'),
-				new Block('O', 'B'),
-				new Block('E', 'R'),
-				new Block('F', 'S'),
-				new Block('L', 'Y'),
-				new Block('P', 'C'),
-				new Block('Z', 'M')));
-	}
-
 	public WordMaker(List<Block> blocks) {
 		this.blocks = new ArrayList<>(blocks);
 	}
 
 	/**
 	 * If no block is found that has the character, returns -1
+	 * @param mutableList 
 	 * 
 	 * @param character
 	 * @return
 	 */
-	public int indexOfBlockThatMatches(char character) {
+	public int indexOfBlockThatMatches(List<Block> mutableList, char character) {
 
 		int match = 0;
 		for (Block block : blocks) {
@@ -63,19 +41,19 @@ public class WordMaker {
 		return word.toUpperCase().toCharArray();
 	}
 
-	private void removeBlocks(String word) {
+	private void removeBlocks(List<Block> mutableList, String word) {
 		char[] chars = prepare(word);
 
 		for (char character : chars) {
-			int blockToRemove = indexOfBlockThatMatches(character);
+			int blockToRemove = indexOfBlockThatMatches(mutableList, character);
 			if (blockToRemove != -1)
-				removeBlock(blockToRemove);
+				removeBlock(mutableList, blockToRemove);
 		}
 
 		// if couldnt match, check removedBlocks
 		if (matchingBlocks.size() < word.length()) {
 			// Check which char is missing.
-			// Check that missing char is among removedBlocks (this means that
+			// Chec	k that missing char is among removedBlocks (this means that
 			// a removed block matches two different chars in word)
 			// Get other value on block
 			// If we have once matched this value (C),
@@ -94,13 +72,14 @@ public class WordMaker {
 		return Optional.empty();
 	}
 
-	private void removeBlock(int blockToRemove) {
+	private void removeBlock(List<Block> mutableList, int blockToRemove) {
 		matchingBlocks.add(blocks.get(blockToRemove));
 		blocks.remove(blockToRemove);
 	}
 
 	public boolean canMake(String word) {
-		removeBlocks(word);
+		List<Block> mutableList = new ArrayList<>(blocks);
+		removeBlocks(mutableList, word);
 		return (matchingBlocks.size() == word.length());
 	}
 

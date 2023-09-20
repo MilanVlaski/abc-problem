@@ -14,7 +14,7 @@ class TestDifferentWords {
 
 	@BeforeEach
 	public void initialize() {
-		wordMaker = new WordMaker();
+		wordMaker = new WordMaker(TestClass.BLOCKS);
 	}
 
 	@Test
