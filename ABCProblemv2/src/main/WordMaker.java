@@ -49,8 +49,10 @@ public class WordMaker {
 
 		int match = 0;
 		for (Block block : blocks) {
-			if (block.has(character))
+			if (block.has(character)) {
+				block.matchTo(character);
 				return match;
+			}
 			match++;
 		}
 
@@ -73,9 +75,8 @@ public class WordMaker {
 		// if couldn match, check removedBlocks
 		if (removedBlocks.size() < word.length()) {
 			// Check which char is missing.
-			
-			
-			// Check that missing char is among removedBlocks
+			// Check that missing char is among removedBlocks (this means that
+			// a removed block matches two different chars in word)
 			// Get other value on block
 			// If we have once matched this value (C),
 			// that means we can create the thing!

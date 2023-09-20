@@ -49,6 +49,13 @@ class TestClass {
 		Block block = new Block('B', 'O');
 		assertTrue(block.has('B'));
 	}
+	
+	@Test
+	void shouldMatchBlockToB() {
+		Block block = new Block('B', 'O');
+		block.matchTo('B');
+		assertEquals('B', block.matched());
+	}
 
 	@Test
 	void fourthBlockShouldHaveA() {
