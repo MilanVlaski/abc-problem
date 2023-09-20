@@ -26,10 +26,10 @@ public class WordMaker {
 		char[] chars = prepare(word);
 
 		for (char character : chars) {
-			int match = blockThatMatches(blocks, character);
-			if (match != -1) {
-				matchingBlocks.add(blocks.get(match));
-				blocks.remove(match);
+			Optional<Block> match = blockThatMatches(blocks, character);
+			if (match.isPresent()) {
+				matchingBlocks.add(match.get());
+				blocks.remove(match.get());
 			}
 		}
 
@@ -57,16 +57,14 @@ public class WordMaker {
 	 * @param character
 	 * @return
 	 */
-	public int blockThatMatches(List<Block> mutableList, char character) {
+	public Optional<Block> blockThatMatches(List<Block> mutableList, char character) {
 
-		int match = 0;
 		for (Block block : mutableList) {
 			if (block.has(character))
-				return match;
-			match++;
+				return Optional.of(block);
 		}
 
-		return -1;
+		return Optional.empty();
 	}
 
 	public char[] prepare(String word) {

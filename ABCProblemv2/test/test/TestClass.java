@@ -4,9 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -66,13 +65,15 @@ class TestClass {
 
 	@Test
 	void fourthBlockShouldHaveA() {
-		assertEquals(4, wordMaker.blockThatMatches(BLOCKS, 'A'));
+		Block aBlock = new Block('A', 'B');
+		List<Block> blocks = List.of(aBlock);
+		assertEquals(aBlock, wordMaker.blockThatMatches(blocks, 'A').get());
 	}
 
 	@Test
 	void shouldReturnMinusOneIfNotFound() {
 		List<Block> blocks = List.of(new Block('A', 'B'));
-		assertEquals(-1, wordMaker.blockThatMatches(blocks, 'C'));
+		assertEquals(Optional.empty(), wordMaker.blockThatMatches(blocks, 'C'));
 	}
 
 	@Test
@@ -85,7 +86,7 @@ class TestClass {
 	void testFinalA() {
 		assertTrue(wordMaker.canMake("A"));
 	}
-	
+
 	@Test
 	void shouldMakeTwoWords_WithoutRunningOutOfBlocks() {
 		assertTrue(wordMaker.canMake("bark"));

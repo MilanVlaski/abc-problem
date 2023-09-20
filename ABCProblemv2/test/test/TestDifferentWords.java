@@ -17,41 +17,13 @@ class TestDifferentWords {
 	}
 
 	@Test
-	void testFinalBARK() {
-		assertEquals(true, wordMaker.canMake("bArk"));
-	}
-
-
-	@Test
-	void testFinalBOOK() {
-		assertEquals(false, wordMaker.canMake("BOOk"));
-	}
-
-	@Test
-	void testFinalTREAT() {
-		assertEquals(true, wordMaker.canMake("TReAt"));
-	}
-
-	@Test
-	void testFinalCOMMON() {
-		assertEquals(false, wordMaker.canMake("coMmon"));
-	}
-
-
-	@Test
-	void testFinalSQUAD() {
-		assertEquals(true, wordMaker.canMake("sQuad"));
-	}
-
-
-	@Test
-	void testFinalCONFUSE() {
-		assertEquals(true, wordMaker.canMake("cOnFuse"));
-	}
-
-
-	@Test
-	void testFinalCustom() {
+	void testFinal() {
+		assertEquals(true, wordMaker.canMake("bark"));
+		assertEquals(false, wordMaker.canMake("book"));
+		assertEquals(true, wordMaker.canMake("treat"));
+		assertEquals(false, wordMaker.canMake("common"));
+		assertEquals(true, wordMaker.canMake("squad"));
+		assertEquals(true, wordMaker.canMake("confuse"));
 		assertEquals(false, wordMaker.canMake("bbom"));
 	}
 

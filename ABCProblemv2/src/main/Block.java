@@ -25,4 +25,10 @@ public class Block {
 	public char matchesChar() {
 		return match;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		Block block = (Block) obj;
+		return block.has(first) && block.has(second);
+	}
 }
