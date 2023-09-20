@@ -70,12 +70,4 @@ public class WordMaker {
 	public char[] prepare(String word) {
 		return word.toUpperCase().toCharArray();
 	}
-
-//	private Optional<Block> removedAndMatchingBlock(char character) {
-//		for (Block block : matchingBlocks) {
-//			if (block.has(character))
-//				return Optional.of(block);
-//		}
-//		return Optional.empty();
-//	}
 }
