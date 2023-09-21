@@ -38,25 +38,30 @@ public class WordMaker {
 			char[] matchedChars = matchedChars(matchingBlocks);
 			char[] missingChars = missingChars(word, matchedChars);
 			boolean matchesContainMissingChar = matchingBlocks.contains(missingChars[0]);
-			if(matchesContainMissingChar) {
-				
-			}
+			Optional<Block> matchingAndMissingBlock = matchingBlockWithMissingChar(matchingBlocks, missingChars);
 			// Check that missing char is among removedBlocks (this means that
 			// a removed block matches two different chars in word)
 			// Get other value on block
-			// If we have once matched this value (C),
+			// If we have once matched this other value (C),
 			// that means we can create the thing!
-			// (actually we add block that matches C to removedBlocks,
+			// (actually we add block that matches C to matchingBlocks,
 		}
 
 		return matchingBlocks;
+	}
+
+	private Optional<Block> matchingBlockWithMissingChar(List<Block> matchingBlocks,
+			char[] missingChars) {
+		return matchingBlocks.stream()
+				.filter((block) -> block.match() == missingChars[0])
+				.findFirst();
 	}
 
 	public char[] missingChars(String word, char[] matchedChars) {
 		String result = word;
 		for (char c : matchedChars)
 			result = result.replaceFirst(String.valueOf(c), "");
-		
+
 		return result.toCharArray();
 	}
 
