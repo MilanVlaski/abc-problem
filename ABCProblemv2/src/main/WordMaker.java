@@ -29,35 +29,37 @@ public class WordMaker {
 		for (char character : chars) {
 			Optional<Block> match = blockThatMatches(blocks, character);
 			if (match.isPresent()) {
-				matchingBlocks.add(match.get());
-				blocks.remove(match.get());
+				// this should be a function
+				Block matchingBlock = match.get();
+				matchingBlock.matchTo(character);
+				matchingBlocks.add(matchingBlock);
+				blocks.remove(matchingBlock);
 			}
 		}
 		// if couldnt match, check removedBlocks
 		if (matchingBlocks.size() < word.length()) {
 			char[] matchedChars = matchedChars(matchingBlocks);
 			char[] missingChars = missingChars(word, matchedChars);
-			Optional<Block> matchingBlockWithMissingChar = matchingBlockWithMissingChar(matchingBlocks, missingChars);
-			// Check that missing char is among removedBlocks (this means that
-			// a removed block matches two different chars in word)
-			// Get other value on block
-			// If we have once matched this other value (C),
-			// that means we can create the thing!
-			// (actually we add block that matches C to matchingBlocks,
+			// for each missing char this should be done
+			Optional<Block> matchingBlockWithMissingChar = blockThatHasChar(matchingBlocks, missingChars[0]);
+			if(matchingBlockWithMissingChar.isPresent()) {
+				char charToReplace = matchingBlockWithMissingChar.get().match();
+				Optional<Block> replacementBlock = blockThatHasChar(blocks, charToReplace);
+				replacementBlock.ifPresent(block -> matchingBlocks.add(block));
+			}
 		}
 
 		return matchingBlocks.size();
 	}
 
-	private Optional<Block> matchingBlockWithMissingChar(List<Block> matchingBlocks,
-	                                                     char[] missingChars) {
+	public Optional<Block> blockThatHasChar(List<Block> matchingBlocks, char c) {
 		return matchingBlocks.stream()
-				.filter((block) -> block.match() == missingChars[0])
+				.filter(block -> block.has(c))
 				.findFirst();
 	}
 
 	public char[] missingChars(String word, char[] matchedChars) {
-		String result = word;
+		String result = word.toUpperCase();
 		for (char c : matchedChars)
 			result = result.replaceFirst(String.valueOf(c), "");
 

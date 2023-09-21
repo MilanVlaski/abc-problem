@@ -22,14 +22,21 @@ public class Block {
 	}
 
 	public void matchTo(char c) {
-		if (c == first)
-			match = first;
-		else if (c == second)
-			match = second;
+		if (has(c))
+			match = c;
 	}
 
 	public char match() {
 		return match;
+	}
+
+	public char other() {
+		if (match == first)
+			return second;
+		else if (match == second)
+			return first;
+		else
+			return '\0';
 	}
 
 	@Override
@@ -37,4 +44,5 @@ public class Block {
 		Block block = (Block) obj;
 		return block.has(first) && block.has(second);
 	}
+
 }
