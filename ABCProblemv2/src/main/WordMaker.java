@@ -18,11 +18,11 @@ public class WordMaker {
 
 	public boolean canMake(String word) {
 		List<Block> mutableBlocks = new ArrayList<>(blocks);
-		List<Block> matchingBlocks = matchBlocks(mutableBlocks, word);
-		return (matchingBlocks.size() == word.length());
+		int matchingBlocks = howManyMatchingBlocks(mutableBlocks, word);
+		return (matchingBlocks == word.length());
 	}
 
-	private List<Block> matchBlocks(List<Block> blocks, String word) {
+	private int howManyMatchingBlocks(List<Block> blocks, String word) {
 		List<Block> matchingBlocks = new ArrayList<>();
 		char[] chars = prepare(word);
 
@@ -37,8 +37,7 @@ public class WordMaker {
 		if (matchingBlocks.size() < word.length()) {
 			char[] matchedChars = matchedChars(matchingBlocks);
 			char[] missingChars = missingChars(word, matchedChars);
-			boolean matchesContainMissingChar = matchingBlocks.contains(missingChars[0]);
-			Optional<Block> matchingAndMissingBlock = matchingBlockWithMissingChar(matchingBlocks, missingChars);
+			Optional<Block> matchingBlockWithMissingChar = matchingBlockWithMissingChar(matchingBlocks, missingChars);
 			// Check that missing char is among removedBlocks (this means that
 			// a removed block matches two different chars in word)
 			// Get other value on block
@@ -47,11 +46,11 @@ public class WordMaker {
 			// (actually we add block that matches C to matchingBlocks,
 		}
 
-		return matchingBlocks;
+		return matchingBlocks.size();
 	}
 
 	private Optional<Block> matchingBlockWithMissingChar(List<Block> matchingBlocks,
-			char[] missingChars) {
+	                                                     char[] missingChars) {
 		return matchingBlocks.stream()
 				.filter((block) -> block.match() == missingChars[0])
 				.findFirst();
