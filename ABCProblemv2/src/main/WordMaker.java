@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public class WordMaker {
 
-	// if you try working with this list, it breaks
+	// immutable list
 	private final List<Block> blocks;
 
 	public WordMaker(List<Block> blocks) {
