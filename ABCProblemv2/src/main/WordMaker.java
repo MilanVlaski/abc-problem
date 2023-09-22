@@ -1,9 +1,6 @@
 package main;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,50 +14,53 @@ public class WordMaker {
 	}
 
 	public boolean canMake(String word) {
-		List<Block> mutableBlocks = new ArrayList<>(blocks);
-		int matchingBlocks = howManyMatchingBlocks(mutableBlocks, word);
+		List<Block> availableBlocks = new ArrayList<>(blocks);
+		int matchingBlocks = matchBlocks(availableBlocks, word);
 		return (matchingBlocks == word.length());
 	}
 
-	private int howManyMatchingBlocks(List<Block> blocks, String word) {
+	private int matchBlocks(List<Block> blocks, String word) {
 		List<Block> matchingBlocks = new ArrayList<>();
 		char[] chars = prepare(word);
 
 		for (char character : chars) {
-			Optional<Block> match = blockThatMatches(blocks, character);
-			if (match.isPresent()) {
-				// this should be a function
-				Block matchingBlock = match.get();
-				matchingBlock.matchTo(character);
-				matchingBlocks.add(matchingBlock);
-				blocks.remove(matchingBlock);
-			}
+			Optional<Block> matchingBlock = blockWith(character, blocks);
+			matchingBlock.ifPresent(match -> {
+				matchingBlocks.add(match);
+				blocks.remove(match);
+				match.matchTo(character);
+			});
 		}
-		// if couldnt match, check removedBlocks
-		if (matchingBlocks.size() < word.length()) {
-			char[] matchedChars = matchedChars(matchingBlocks);
-			char[] missingChars = missingChars(word, matchedChars);
-			// for each missing char this should be done
-			Optional<Block> matchingBlockWithMissingChar = blockThatHasChar(matchingBlocks, missingChars[0]);
-			if(matchingBlockWithMissingChar.isPresent()) {
-				char charToReplace = matchingBlockWithMissingChar.get().match();
-				Optional<Block> replacementBlock = blockThatHasChar(blocks, charToReplace);
-				replacementBlock.ifPresent(block -> matchingBlocks.add(block));
-			}
-		}
+
+		if (matchingBlocks.size() < word.length())
+			tryMatchingWithRemainingBlocks(word, blocks, matchingBlocks);
 
 		return matchingBlocks.size();
 	}
 
-	public Optional<Block> blockThatHasChar(List<Block> matchingBlocks, char c) {
-		return matchingBlocks.stream()
-				.filter(block -> block.has(c))
+	private void tryMatchingWithRemainingBlocks(String word, List<Block> blocks, List<Block> matchingBlocks) {
+		char[] matchedChars = matchedChars(matchingBlocks);
+		char[] missingChars = missingChars(word, matchedChars);
+
+		for (char missingChar : missingChars) {
+			Optional<Block> missingBlock = blockWith(missingChar, matchingBlocks);
+			missingBlock.ifPresent(block -> {
+				char replacementChar = block.matches();
+				Optional<Block> replacementBlock = blockWith(replacementChar, blocks);
+				replacementBlock.ifPresent(matchingBlocks::add);
+			});
+		}
+	}
+
+	public Optional<Block> blockWith(char character, List<Block> blocks) {
+		return blocks.stream()
+				.filter(block -> block.has(character))
 				.findFirst();
 	}
 
-	public char[] missingChars(String word, char[] matchedChars) {
+	public char[] missingChars(String word, char[] chars) {
 		String result = word.toUpperCase();
-		for (char c : matchedChars)
+		for (char c : chars)
 			result = result.replaceFirst(String.valueOf(c), "");
 
 		return result.toCharArray();
@@ -71,27 +71,9 @@ public class WordMaker {
 
 		int i = 0;
 		for (Block block : matchingBlocks)
-			matchedChars[i++] = block.match();
+			matchedChars[i++] = block.matches();
 
 		return matchedChars;
-	}
-
-	/**
-	 * If no block is found that has the character, returns -1
-	 * 
-	 * @param mutableList
-	 * 
-	 * @param character
-	 * @return
-	 */
-	public Optional<Block> blockThatMatches(List<Block> mutableList, char character) {
-
-		for (Block block : mutableList) {
-			if (block.has(character))
-				return Optional.of(block);
-		}
-
-		return Optional.empty();
 	}
 
 	public char[] prepare(String word) {

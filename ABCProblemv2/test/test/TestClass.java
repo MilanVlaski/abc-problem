@@ -53,14 +53,14 @@ class TestClass {
 	void shouldMatchBlockToB() {
 		Block block = new Block('B', 'O');
 		block.matchTo('B');
-		assertEquals('B', block.match());
+		assertEquals('B', block.matches());
 	}
 
 	@Test
 	void shouldMatchBlockToO() {
 		Block block = new Block('B', 'O');
 		block.matchTo('O');
-		assertEquals('O', block.match());
+		assertEquals('O', block.matches());
 		assertEquals('B', block.other());
 	}
 
@@ -68,13 +68,13 @@ class TestClass {
 	void shouldReturnMatchingBlock() {
 		Block aBlock = new Block('A', 'B');
 		List<Block> blocks = List.of(aBlock);
-		assertEquals(aBlock, wordMaker.blockThatMatches(blocks, 'A').get());
+		assertEquals(aBlock, wordMaker.blockWith('A', blocks).get());
 	}
 
 	@Test
 	void shouldReturnEmptyIfNotFound() {
 		List<Block> blocks = List.of(new Block('A', 'B'));
-		assertEquals(Optional.empty(), wordMaker.blockThatMatches(blocks, 'C'));
+		assertEquals(Optional.empty(), wordMaker.blockWith('C', blocks));
 	}
 
 	@Test
@@ -117,9 +117,9 @@ class TestClass {
 	@Test
 	void shouldGetBlockThatHasMissingChar() {
 		List<Block> matchedBlocks = List.of(
-				new Block('A', 'Z', 'A'),
-				new Block('C', 'E', 'C'));
+				new Block('A', 'Z'),
+				new Block('C', 'E'));
 		assertEquals(new Block('C', 'E'),
-				wordMaker.blockThatHasChar(matchedBlocks, 'E').get());
+				wordMaker.blockWith('E', matchedBlocks).get());
 	}
 }

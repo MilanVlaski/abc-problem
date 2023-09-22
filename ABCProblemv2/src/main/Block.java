@@ -26,7 +26,7 @@ public class Block {
 			match = c;
 	}
 
-	public char match() {
+	public char matches() {
 		return match;
 	}
 
